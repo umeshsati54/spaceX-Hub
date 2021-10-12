@@ -3,14 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2203125" />
         <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/drawable/outline_business_24.xml" value="0.1" />
         <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/drawable/rocket_launch_outline.xml" value="0.1" />
         <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/drawable/rocket_outline.xml" value="0.1" />
-        <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/layout/fragment_about.xml" value="0.1" />
         <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/layout/fragment_launch_detail.xml" value="0.1" />
         <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/layout/fragment_launches.xml" value="0.20364583333333333" />
-        <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/layout/fragment_rocket.xml" value="0.12101910828025478" />
+        <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/layout/fragment_rocket.xml" value="0.1" />
+        <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/layout/fragment_rocket_detail.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/layout/fragment_search.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/layout/launches_dropdown_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/layout/rocket_item.xml" value="0.33" />
         <entry key="..\:/Users/1810488/Downloads/IBAWindowsLauncher/bin/spacex/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
       </map>

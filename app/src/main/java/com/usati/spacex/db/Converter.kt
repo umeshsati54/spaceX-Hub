@@ -3,6 +3,7 @@ package com.usati.spacex.db
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.usati.spacex.models.launch.Core
 import com.usati.spacex.models.rocket.PayloadWeight
 import java.lang.reflect.Type
 
@@ -32,6 +33,30 @@ class Converter {
 
     @TypeConverter
     fun fromListToPl(list: List<PayloadWeight?>?): String? {
+        val gson = Gson()
+        return gson.toJson(list)
+    }
+
+    @TypeConverter
+    fun fromStringToCore(value: String?): List<Core?>? {
+        val listType: Type = object : TypeToken<List<Core?>?>() {}.type
+        return Gson().fromJson(value, listType)
+    }
+
+    @TypeConverter
+    fun fromListToCore(list: List<Core?>?): String? {
+        val gson = Gson()
+        return gson.toJson(list)
+    }
+
+    @TypeConverter
+    fun fromStringToAny(value: String?): List<Any?>? {
+        val listType: Type = object : TypeToken<List<Any?>?>() {}.type
+        return Gson().fromJson(value, listType)
+    }
+
+    @TypeConverter
+    fun fromListToAny(list: List<Any?>?): String? {
         val gson = Gson()
         return gson.toJson(list)
     }

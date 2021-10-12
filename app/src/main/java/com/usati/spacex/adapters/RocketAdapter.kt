@@ -1,4 +1,4 @@
-package com.usati.spacex
+package com.usati.spacex.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.usati.spacex.R
 import com.usati.spacex.models.rocket.Rocket
 import kotlinx.android.synthetic.main.rocket_item.view.*
 

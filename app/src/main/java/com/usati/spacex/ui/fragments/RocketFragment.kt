@@ -1,4 +1,4 @@
-package com.usati.spacex.ui
+package com.usati.spacex.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.usati.spacex.R
 import com.usati.spacex.Resource
-import com.usati.spacex.RocketAdapter
-import com.usati.spacex.RocketViewModel
+import com.usati.spacex.adapters.RocketAdapter
+import com.usati.spacex.ui.viewmodels.RocketViewModel
+import com.usati.spacex.ui.activities.MainActivity
 import kotlinx.android.synthetic.main.fragment_rocket.*
 
 class RocketFragment : Fragment(R.layout.fragment_rocket) {
@@ -19,7 +20,7 @@ class RocketFragment : Fragment(R.layout.fragment_rocket) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = (activity as MainActivity).viewModel
+        viewModel = (activity as MainActivity).viewModelRocket
         setupRecyclerView()
         //viewModel.getRocketsAPI()
 

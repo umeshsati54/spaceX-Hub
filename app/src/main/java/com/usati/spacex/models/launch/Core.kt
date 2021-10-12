@@ -1,13 +1,13 @@
 package com.usati.spacex.models.launch
 
 data class Core(
-    val core: Any,
-    val flight: Any,
-    val gridfins: Any,
-    val landing_attempt: Any,
-    val landing_success: Any,
-    val landing_type: Any,
-    val landpad: Any,
-    val legs: Any,
-    val reused: Any
+    val core: String?,
+    val flight: Int?,
+    val gridfins: Boolean?,
+    val landing_attempt: Boolean?,
+    val landing_success: Boolean?,
+    val landing_type: String?,
+    val landpad: String?,
+    val legs: Boolean?,
+    val reused: Boolean?
 )

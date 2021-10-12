@@ -1,4 +1,4 @@
-package com.usati.spacex.ui
+package com.usati.spacex.ui.fragments
 
 import androidx.fragment.app.Fragment
 import com.usati.spacex.R

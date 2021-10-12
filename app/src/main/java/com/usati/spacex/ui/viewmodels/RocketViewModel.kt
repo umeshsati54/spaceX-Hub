@@ -1,4 +1,4 @@
-package com.usati.spacex
+package com.usati.spacex.ui.viewmodels
 
 import android.app.Application
 import android.content.Context
@@ -7,6 +7,9 @@ import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.usati.spacex.Resource
+import com.usati.spacex.SpacexRepository
+import com.usati.spacex.SpacexApplication
 import com.usati.spacex.models.rocket.Rocket
 import com.usati.spacex.models.rocket.RocketResponse
 import kotlinx.coroutines.launch
@@ -15,8 +18,8 @@ import retrofit2.Response
 
 class RocketViewModel(
     app: Application,
-    private val rocketRepository: RocketRepository
-) : AndroidViewModel(app) {
+    private val spacexRepository: SpacexRepository
+) : BaseViewModel(app) {
     val rockets: MutableLiveData<Resource<RocketResponse>> = MutableLiveData()
     var rocketResponse: RocketResponse? = null
 
@@ -28,10 +31,10 @@ class RocketViewModel(
         safeRocketsCall()
     }
 
-    fun getRocketFromRoom() = rocketRepository.getRocketsRoom()
+    fun getRocketFromRoom() = spacexRepository.getRocketsRoom()
 
     suspend fun saveRocketDataIntoRoom(rocket: Rocket) = viewModelScope.launch {
-        rocketRepository.upsert(rocket)
+        spacexRepository.upsertRocket(rocket)
     }
 
 
@@ -55,7 +58,7 @@ class RocketViewModel(
         rockets.postValue(Resource.Loading())
         try {
             if (isConnected()) {
-                val response = rocketRepository.getRocketsAPI()
+                val response = spacexRepository.getRocketsAPI()
                 rockets.postValue(handleRocketResponse(response))
                 response.body()?.forEach {
                     saveRocketDataIntoRoom(it)
@@ -71,19 +74,19 @@ class RocketViewModel(
         }
     }
 
-    private fun isConnected(): Boolean {
-        val connectivityManager = getApplication<SpacexApplication>()
-            .getSystemService(
-                Context.CONNECTIVITY_SERVICE
-            ) as ConnectivityManager
-        val activeNetwork = connectivityManager.activeNetwork ?: return false
-        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
-        return when {
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            else -> false
-        }
-    }
+//    private fun isConnected(): Boolean {
+//        val connectivityManager = getApplication<SpacexApplication>()
+//            .getSystemService(
+//                Context.CONNECTIVITY_SERVICE
+//            ) as ConnectivityManager
+//        val activeNetwork = connectivityManager.activeNetwork ?: return false
+//        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+//        return when {
+//            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+//            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+//            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+//            else -> false
+//        }
+//    }
 
 }

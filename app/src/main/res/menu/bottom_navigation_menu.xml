@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/rocketFragment"
-        android:title="Rockets"
-        android:icon="@drawable/rocket_outline"
-        />
     <item android:id="@+id/launchesFragment"
         android:title="Launches"
         android:icon="@drawable/rocket_launch_outline"
         />
-    <item android:id="@+id/aboutFragment"
-        android:title="About"
-        android:icon="@drawable/outline_business_24"/>
+    <item android:id="@+id/placeholder"
+        android:title=""
+        />
+
+    <item android:id="@+id/rocketFragment"
+        android:title="Rockets"
+        android:icon="@drawable/rocket_outline"
+        />
 
 </menu>
