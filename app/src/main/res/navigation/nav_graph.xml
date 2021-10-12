@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/rocketFragment">
+
+    <fragment
+        android:id="@+id/rocketFragment"
+        android:name="com.usati.spacex.ui.RocketFragment"
+        android:label="fragment_rocket"
+        tools:layout="@layout/fragment_rocket" >
+        <action
+            android:id="@+id/action_rocketFragment_to_rocketDetailFragment"
+            app:destination="@id/rocketDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/launchesFragment"
+        android:name="com.usati.spacex.ui.LaunchesFragment"
+        android:label="fragment_launches"
+        tools:layout="@layout/fragment_launches" >
+        <action
+            android:id="@+id/action_launchesFragment_to_launchDetailFragment"
+            app:destination="@id/launchDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.usati.spacex.ui.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/launchDetailFragment"
+        android:name="com.usati.spacex.ui.LaunchDetailFragment"
+        android:label="fragment_launch_detail"
+        tools:layout="@layout/fragment_launch_detail" />
+    <fragment
+        android:id="@+id/rocketDetailFragment"
+        android:name="com.usati.spacex.ui.RocketDetailFragment"
+        android:label="fragment_rocket_detail"
+        tools:layout="@layout/fragment_rocket_detail" />
+</navigation>
