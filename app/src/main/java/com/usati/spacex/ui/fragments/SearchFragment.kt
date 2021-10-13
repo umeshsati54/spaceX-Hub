@@ -25,6 +25,10 @@ class SearchFragment : Fragment(R.layout.fragment_search){
         viewModel = (activity as MainActivity).viewModelLaunches
         setupRecyclerView()
 
+        launchAdapter.setOnItemClickListener { launch ->
+
+        }
+
         etSearch.editText?.doOnTextChanged { text, start, before, count ->
             if (text.toString().isNotEmpty()){
                 searchForLaunches(text.toString())

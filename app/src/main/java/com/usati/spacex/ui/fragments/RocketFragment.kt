@@ -24,6 +24,10 @@ class RocketFragment : Fragment(R.layout.fragment_rocket) {
         setupRecyclerView()
         //viewModel.getRocketsAPI()
 
+        rocketAdapter.setOnItemClickListener { rocket ->
+
+        }
+
         viewModel.rockets.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
@@ -39,7 +43,7 @@ class RocketFragment : Fragment(R.layout.fragment_rocket) {
 
                     response.message?.let { message ->
                         Log.e("ROCKET TAG", message)
-                        Toast.makeText(context, message+response.data, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, message + response.data, Toast.LENGTH_SHORT).show()
 
                     }
                 }

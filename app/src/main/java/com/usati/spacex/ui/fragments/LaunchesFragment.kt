@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.usati.spacex.R
 import com.usati.spacex.Resource
 import com.usati.spacex.adapters.LaunchAdapter
@@ -20,12 +22,22 @@ import com.usati.spacex.ui.activities.MainActivity
 import com.usati.spacex.ui.viewmodels.LaunchViewModel
 import kotlinx.android.synthetic.main.fragment_launches.*
 import kotlinx.android.synthetic.main.fragment_rocket.*
+import kotlinx.android.synthetic.main.rocket_item.*
+import kotlinx.android.synthetic.main.rocket_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
+import android.graphics.Rect
+
+import android.view.MotionEvent
+import androidx.core.widget.NestedScrollView
+
 
 class LaunchesFragment : Fragment(R.layout.fragment_launches) {
     lateinit var viewModel: LaunchViewModel
     lateinit var launchAdapter: LaunchAdapter
 
     lateinit var arrayAdapter: ArrayAdapter<String>
+    lateinit var bottomSheetBehavior: BottomSheetBehavior<NestedScrollView>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,12 +45,31 @@ class LaunchesFragment : Fragment(R.layout.fragment_launches) {
         setupRecyclerView()
         //viewModel.getRocketsAPI()
 
+        bottomSheetBehavior = BottomSheetBehavior.from(launchDetailsBS)
+        bottomSheetBehavior.peekHeight = 0
+
+
+        launchAdapter.setOnItemClickListener { launch ->
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            Glide.with(this).load(launch.links?.patch?.small)
+                .placeholder(R.drawable.rocket_launch_outline).into(ivLaunchImageBS)
+            tvTitleBS.text = launch.name
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            val outputFormat = SimpleDateFormat("MMM dd, yyyy HH:mm ")
+            val date: Date = inputFormat.parse(launch.date_utc)
+            val formattedDate: String = outputFormat.format(date)
+            tvSubTitleBS.text = formattedDate + "IST"
+            tvLaunchDetails.text = launch.details
+        }
+
+
         val options = resources.getStringArray(R.array.Filter)
-        arrayAdapter = ArrayAdapter(context?.applicationContext!!, R.layout.launches_dropdown_item, options)
+        arrayAdapter =
+            ArrayAdapter(context?.applicationContext!!, R.layout.launches_dropdown_item, options)
         autoCompleteTextView.setAdapter(arrayAdapter)
 
 
-        autoCompleteTextView.addTextChangedListener(object: TextWatcher {
+        autoCompleteTextView.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -53,15 +84,16 @@ class LaunchesFragment : Fragment(R.layout.fragment_launches) {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 //displayStatesForSelectedCountry(s.toString())
                 //viewModel.country.value = s.toString()
-                if (s.toString() == "Upcoming"){
-                    viewModel.getUpcomingLaunchesFromRoom().observe(viewLifecycleOwner, Observer { rockets ->
-                        launchAdapter.differ.submitList(rockets)
-                    })
-                }
-                else{
-                    viewModel.getPastLaunchesFromRoom().observe(viewLifecycleOwner, Observer { rockets ->
-                        launchAdapter.differ.submitList(rockets)
-                    })
+                if (s.toString() == "Upcoming") {
+                    viewModel.getUpcomingLaunchesFromRoom()
+                        .observe(viewLifecycleOwner, Observer { rockets ->
+                            launchAdapter.differ.submitList(rockets)
+                        })
+                } else {
+                    viewModel.getPastLaunchesFromRoom()
+                        .observe(viewLifecycleOwner, Observer { rockets ->
+                            launchAdapter.differ.submitList(rockets)
+                        })
                 }
             }
         })
@@ -94,6 +126,7 @@ class LaunchesFragment : Fragment(R.layout.fragment_launches) {
         viewModel.getUpcomingLaunchesFromRoom().observe(viewLifecycleOwner, Observer { launches ->
             launchAdapter.differ.submitList(launches)
         })
+
     }
 
     private fun setupRecyclerView() {
@@ -104,8 +137,8 @@ class LaunchesFragment : Fragment(R.layout.fragment_launches) {
         }
     }
 
-    private fun AutoCompleteTextView.showDropdownMenu(adapter: ArrayAdapter<String>){
-        if(!TextUtils.isEmpty(this.text.toString())){
+    private fun AutoCompleteTextView.showDropdownMenu(adapter: ArrayAdapter<String>) {
+        if (!TextUtils.isEmpty(this.text.toString())) {
             adapter.filter.filter(null)
         }
     }
@@ -114,4 +147,6 @@ class LaunchesFragment : Fragment(R.layout.fragment_launches) {
         super.onResume()
         autoCompleteTextView.showDropdownMenu(arrayAdapter)
     }
+
+
 }

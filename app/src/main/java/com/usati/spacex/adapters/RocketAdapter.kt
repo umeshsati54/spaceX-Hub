@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.usati.spacex.R
+import com.usati.spacex.models.launch.Launch
 import com.usati.spacex.models.rocket.Rocket
 import kotlinx.android.synthetic.main.rocket_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RocketAdapter : RecyclerView.Adapter<RocketAdapter.RocketViewHolder>() {
     inner class RocketViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -45,6 +48,22 @@ class RocketAdapter : RecyclerView.Adapter<RocketAdapter.RocketViewHolder>() {
         holder.itemView.apply {
             Glide.with(this).load(rocket.flickr_images?.get(0)).into(ivRocketImage)
             tvTitle.text = rocket.name
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd")
+            val outputFormat = SimpleDateFormat("MMM dd, yyyy")
+            val date: Date = inputFormat.parse(rocket.first_flight)
+            val formattedDate: String = outputFormat.format(date)
+            tvSubTitle.text = formattedDate
+            setOnClickListener {
+                onItemClickListener?.let {
+                    it(rocket)
+                }
+            }
         }
+    }
+
+    private var onItemClickListener: ((Rocket) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (Rocket) -> Unit) {
+        onItemClickListener = listener
     }
 }

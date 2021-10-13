@@ -11,8 +11,11 @@ import com.usati.spacex.SpacexRepository
 import com.usati.spacex.db.SpacexDatabase
 import com.usati.spacex.ui.fragments.RocketFragment
 import com.usati.spacex.ui.fragments.SearchFragment
-import com.usati.spacex.ui.viewmodels.*
+import com.usati.spacex.ui.viewmodels.LaunchViewModel
+import com.usati.spacex.ui.viewmodels.RocketViewModel
+import com.usati.spacex.ui.viewmodels.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModelRocket: RocketViewModel
