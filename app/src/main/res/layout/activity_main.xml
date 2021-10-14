@@ -46,7 +46,10 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_search_24"
         app:layout_anchor="@id/bottomAppBar"
-        app:tint="@android:color/white" />
+        app:tint="@android:color/white"
+        android:contentDescription="@string/search_here"
+        app:backgroundTint="@color/black"
+        app:rippleColor="@color/white_gray"/>
 
     <!--com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

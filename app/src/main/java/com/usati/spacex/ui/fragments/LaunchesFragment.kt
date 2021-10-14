@@ -30,13 +30,19 @@ import android.graphics.Rect
 
 import android.view.MotionEvent
 import androidx.core.widget.NestedScrollView
+import android.content.ActivityNotFoundException
+import android.content.Context
+
+import android.net.Uri
+
+import android.content.Intent
+import androidx.core.content.ContextCompat.startActivity
 
 
 class LaunchesFragment : Fragment(R.layout.fragment_launches) {
     lateinit var viewModel: LaunchViewModel
     lateinit var launchAdapter: LaunchAdapter
 
-    lateinit var arrayAdapter: ArrayAdapter<String>
     lateinit var bottomSheetBehavior: BottomSheetBehavior<NestedScrollView>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,70 +66,61 @@ class LaunchesFragment : Fragment(R.layout.fragment_launches) {
             val formattedDate: String = outputFormat.format(date)
             tvSubTitleBS.text = formattedDate + "IST"
             tvLaunchDetails.text = launch.details
+
+            ibYoutube.setOnClickListener {
+                val youtubeId = launch.links?.youtube_id
+                if (youtubeId != null) {
+                    watchYoutubeVideo(it.context, youtubeId)
+                } else Toast.makeText(it.context, "No video available", Toast.LENGTH_SHORT).show()
+            }
+
+            ibWeb.setOnClickListener {
+                val articleLink = launch.links?.article
+                if (articleLink != null) {
+                    openUrl(it.context, articleLink)
+                } else Toast.makeText(it.context, "No article available", Toast.LENGTH_SHORT).show()
+            }
+
+            ibWikiLaunch.setOnClickListener {
+                val wikiLink = launch.links?.wikipedia
+                if (wikiLink != null) {
+                    openUrl(it.context, wikiLink)
+                } else Toast.makeText(it.context, "No wiki page", Toast.LENGTH_SHORT).show()
+            }
         }
 
-
-        val options = resources.getStringArray(R.array.Filter)
-        arrayAdapter =
-            ArrayAdapter(context?.applicationContext!!, R.layout.launches_dropdown_item, options)
-        autoCompleteTextView.setAdapter(arrayAdapter)
-
-
-        autoCompleteTextView.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
+        radioGroup.setOnCheckedChangeListener { radioGroup, i ->
+            if (i == pastRB.id) {
+                viewModel.getPastLaunchesFromRoom()
+                    .observe(viewLifecycleOwner, { launches ->
+                        launchAdapter.differ.submitList(launches)
+                    })
+            } else if (i == upcomingRB.id) {
+                viewModel.getUpcomingLaunchesFromRoom()
+                    .observe(viewLifecycleOwner, { launches ->
+                        launchAdapter.differ.submitList(launches)
+                    })
             }
+        }
 
-            override fun beforeTextChanged(
-                s: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                //displayStatesForSelectedCountry(s.toString())
-                //viewModel.country.value = s.toString()
-                if (s.toString() == "Upcoming") {
-                    viewModel.getUpcomingLaunchesFromRoom()
-                        .observe(viewLifecycleOwner, Observer { rockets ->
-                            launchAdapter.differ.submitList(rockets)
-                        })
-                } else {
-                    viewModel.getPastLaunchesFromRoom()
-                        .observe(viewLifecycleOwner, Observer { rockets ->
-                            launchAdapter.differ.submitList(rockets)
-                        })
-                }
-            }
-        })
         viewModel.launches.observe(viewLifecycleOwner, { response ->
             when (response) {
-                is Resource.Success -> {
-                    //hideProgressBar()
-                    //Toast.makeText(context, response.message+response.data, Toast.LENGTH_SHORT).show()
-                    response.data?.let {
-                        //rocketAdapter.differ.submitList(rocketResponse)
-
-                    }
-                }
-
                 is Resource.Error -> {
-
+                    hideProgressBar()
                     response.message?.let { message ->
-                        Log.e("ROCKET TAG", message)
-                        Toast.makeText(context, message + response.data, Toast.LENGTH_SHORT).show()
-
+                        tvErrorLaunch.text = message
                     }
                 }
                 is Resource.Loading -> {
-
+                    showProgressBar()
                 }
-
+                is Resource.Success -> {
+                    hideProgressBar()
+                }
             }
         })
 
-        viewModel.getUpcomingLaunchesFromRoom().observe(viewLifecycleOwner, Observer { launches ->
+        viewModel.getPastLaunchesFromRoom().observe(viewLifecycleOwner, { launches ->
             launchAdapter.differ.submitList(launches)
         })
 
@@ -137,16 +134,37 @@ class LaunchesFragment : Fragment(R.layout.fragment_launches) {
         }
     }
 
-    private fun AutoCompleteTextView.showDropdownMenu(adapter: ArrayAdapter<String>) {
-        if (!TextUtils.isEmpty(this.text.toString())) {
-            adapter.filter.filter(null)
+    companion object {
+        fun watchYoutubeVideo(context: Context, id: String) {
+            val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$id"))
+            val webIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("http://www.youtube.com/watch?v=$id")
+            )
+            try {
+                context.startActivity(appIntent)
+            } catch (ex: ActivityNotFoundException) {
+                context.startActivity(webIntent)
+            }
+        }
+
+        fun openUrl(context: Context, url: String) {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            context.startActivity(browserIntent)
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        autoCompleteTextView.showDropdownMenu(arrayAdapter)
+    private fun hideProgressBar() {
+        launchProgressBar.visibility = View.INVISIBLE
+        isLoading = false
     }
+
+    private fun showProgressBar() {
+        launchProgressBar.visibility = View.VISIBLE
+        isLoading = true
+    }
+
+    var isLoading = false
 
 
 }

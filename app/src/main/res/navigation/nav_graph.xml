@@ -11,9 +11,6 @@
         android:label="fragment_rocket"
         tools:layout="@layout/fragment_rocket" >
         <action
-            android:id="@+id/action_rocketFragment_to_rocketDetailFragment"
-            app:destination="@id/rocketDetailFragment" />
-        <action
             android:id="@+id/action_rocketFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
     </fragment>
@@ -23,22 +20,9 @@
         android:label="fragment_launches"
         tools:layout="@layout/fragment_launches" >
         <action
-            android:id="@+id/action_launchesFragment_to_launchDetailFragment"
-            app:destination="@id/launchDetailFragment" />
-        <action
             android:id="@+id/action_launchesFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/launchDetailFragment"
-        android:name="com.usati.spacex.ui.fragments.LaunchDetailFragment"
-        android:label="fragment_launch_detail"
-        tools:layout="@layout/fragment_launch_detail" />
-    <fragment
-        android:id="@+id/rocketDetailFragment"
-        android:name="com.usati.spacex.ui.fragments.RocketDetailFragment"
-        android:label="fragment_rocket_detail"
-        tools:layout="@layout/fragment_rocket_detail" />
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.usati.spacex.ui.fragments.SearchFragment"

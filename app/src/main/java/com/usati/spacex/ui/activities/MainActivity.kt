@@ -22,7 +22,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModelLaunches: LaunchViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Spacex)
         setContentView(R.layout.activity_main)
+
+
 
         bottomNavigationView.background = null
 

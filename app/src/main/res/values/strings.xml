@@ -2,9 +2,18 @@
     <string name="app_name">spacex</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="live_stream">live stream</string>
+    <string name="wikipidia">wikipidia</string>
+    <string name="website">website</string>
+    <string name="drag">drag</string>
+    <string name="mass">Mass</string>
+    <string name="diameter">Diameter</string>
+    <string name="height">Height</string>
+    <string name="cost_per_launch">Cost per launch</string>
+    <string name="search_here">search here</string>
 
     <string-array name="Filter">
-        <item>Upcoming</item>
-        <item>Past</item>
+        <item>Past Launches</item>
+        <item>Upcoming Launches</item>
     </string-array>
 </resources>
