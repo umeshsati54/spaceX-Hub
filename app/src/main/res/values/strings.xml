@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">spacex</string>
+    <string name="app_name">SpaceX Hub</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="live_stream">live stream</string>
-    <string name="wikipidia">wikipidia</string>
+    <string name="wikipedia">wikipedia</string>
     <string name="website">website</string>
     <string name="drag">drag</string>
     <string name="mass">Mass</string>

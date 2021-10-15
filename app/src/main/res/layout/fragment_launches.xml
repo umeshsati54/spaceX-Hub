@@ -23,53 +23,63 @@
         android:layout_height="match_parent"
         android:layout_marginTop="?android:attr/actionBarSize">
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rbRL"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:checkedButton="@+id/pastRB"
-            android:orientation="horizontal"
-            android:padding="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:elevation="15dp">
 
-            <RadioButton
-                android:id="@+id/pastRB"
+            <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="50dp"
-                android:buttonTint="@color/black"
-                android:text="Past" />
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:checkedButton="@+id/pastRB"
+                android:orientation="horizontal"
+                android:padding="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <RadioButton
-                android:id="@+id/upcomingRB"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:buttonTint="@color/black"
-                android:text="Upcoming" />
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/pastRB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="50dp"
+                    android:buttonTint="@color/black"
+                    android:text="Past" />
+
+                <RadioButton
+                    android:id="@+id/upcomingRB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/black"
+                    android:text="Upcoming" />
+            </RadioGroup>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tvErrorLaunch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/radioGroup"
+            android:layout_below="@+id/rbRL"
             android:padding="16dp"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/rbRL" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvLaunches"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_below="@+id/radioGroup"
+            android:layout_below="@+id/rbRL"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/rbRL" />
 
         <ProgressBar
             android:id="@+id/launchProgressBar"
@@ -189,7 +199,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@android:color/transparent"
-                    android:contentDescription="@string/wikipidia"
+                    android:contentDescription="@string/wikipedia"
                     android:scaleType="centerCrop"
                     android:src="@drawable/wikipedia" />
 

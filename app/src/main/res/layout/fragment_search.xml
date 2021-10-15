@@ -18,11 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:focusable="true"
-            android:hint="Search Launches..."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:elevation="15dp"
+            android:hint="Search Launches...">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -66,7 +63,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:layout_marginTop="56dp"
         android:background="@drawable/bottom_sheet_background"
         android:clickable="true"
         android:elevation="18dp"
